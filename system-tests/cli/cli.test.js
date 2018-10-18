@@ -1,5 +1,6 @@
 /* eslint no-console: off */
 "use strict";
+
 const cli = require("../../lib/cli");
 const path = require("path");
 const pkg = require("../../package.json");
@@ -25,6 +26,7 @@ describe("CLI", () => {
     process.exitCode = undefined;
     console.log = jest.fn();
     process.stdout.write = jest.fn();
+
     if (parseInt(process.versions.node) < 7) {
       // https://github.com/sindresorhus/get-stdin/issues/13
       process.nextTick(() => {
@@ -38,6 +40,7 @@ describe("CLI", () => {
       expect(process.exitCode).toBe(2);
       expect(console.log.mock.calls).toHaveLength(1);
       const lastCallArgs = console.log.mock.calls.pop();
+
       expect(lastCallArgs).toHaveLength(1);
       expect(lastCallArgs.pop()).toMatch("Usage: stylelint [input] [options]");
     });
@@ -48,6 +51,7 @@ describe("CLI", () => {
       expect(process.exitCode).toBe(0);
       expect(console.log.mock.calls).toHaveLength(1);
       const lastCallArgs = console.log.mock.calls.pop();
+
       expect(lastCallArgs).toHaveLength(1);
       expect(lastCallArgs.pop()).toMatch("Usage: stylelint [input] [options]");
     });
@@ -58,6 +62,7 @@ describe("CLI", () => {
       expect(process.exitCode).toBe(undefined);
       expect(console.log.mock.calls).toHaveLength(1);
       const lastCallArgs = console.log.mock.calls.pop();
+
       expect(lastCallArgs).toHaveLength(1);
       expect(lastCallArgs.pop()).toMatch(pkg.version);
     });
